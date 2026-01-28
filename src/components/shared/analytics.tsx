@@ -8,7 +8,7 @@ import LoadingLayout from "./loadingLayout";
 
 
 export default function Analytics(
-    { labels }: { labels: IAnalyticLabel[] }
+    { labels }: { labels: IAnalyticLabel[] | [] }
 ) {
 
     const { data, isLoading } = useFetchData<IAnalytic>({

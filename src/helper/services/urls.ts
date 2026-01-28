@@ -4,6 +4,8 @@ export const URLS = {
     UPLOAD: "/upload/file",
     BUSINESS: "/business/filter",
     USER: "/user",
+    ADMIN: "/admin-auth",
+    ADMINBYID: (item: string) => `/admin-auth/${item}`,
     ANALYTICS: "/analytics/global",
     CREATECHAT: "/messaging/chats",
     SENDCHAT: "/messaging/messages",

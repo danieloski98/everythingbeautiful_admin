@@ -4,6 +4,11 @@ export interface ILogin {
     email: string,
 }
 
+export interface IAdminAuth {
+    fullName: string,
+    email: string
+}
+
 export interface IAuth {
     email: string,
 }

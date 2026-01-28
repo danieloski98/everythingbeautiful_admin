@@ -6,6 +6,12 @@ export const emailSchema = Yup.object({
     email: Yup.string().email("Invalid email").required("Required"),
 })
 
+/** 🔹 Formik Schemas */
+export const adminSchema = Yup.object({
+    fullName: Yup.string().required("Required"),
+    email: Yup.string().email("Invalid email").required("Required"),
+})
+
 export const otpSchema = Yup.object({
     code: Yup.string().required("Required"),
 })

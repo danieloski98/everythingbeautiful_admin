@@ -45,7 +45,7 @@ const useDeleteHook = () => {
     }) 
 
     /** 🔹 Product */
-    const deletaProductMutation = useMutation({
+    const deleteProductMutation = useMutation({
         mutationFn: (data: string) =>
             httpService.delete(URLS.PRODUCTBYID(data)),
         onError: handleError,
@@ -60,17 +60,35 @@ const useDeleteHook = () => {
         },
     }) 
 
+    /** 🔹 Product */
+    const deleteAdminMutation = useMutation({
+        mutationFn: (data: string) =>
+            httpService.delete(URLS.ADMINBYID(data)),
+        onError: handleError,
+        onSuccess: (res) => {
+            addToast({
+                title: "Success",
+                description: res?.data?.message,
+                color: "success",
+            }) 
+            queryClient.invalidateQueries({ queryKey: ["admin"] })
+            queryClient.invalidateQueries({ queryKey: ["analytics"] })
+        },
+    })
+
     /** 🔹 Loading State */
     const isLoading =
         deletaBuisnessMutation.isPending || 
-        deletaProductMutation.isPending || 
-        deletaServiceMutation.isPending 
+        deleteProductMutation.isPending || 
+        deletaServiceMutation.isPending ||
+        deleteAdminMutation.isPending
 
     return { 
         isLoading, 
         deletaBuisnessMutation,
-        deletaProductMutation,
+        deleteProductMutation,
         deletaServiceMutation,
+        deleteAdminMutation,
         isOpen,
         setIsOpen
     }

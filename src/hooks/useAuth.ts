@@ -2,11 +2,11 @@
 
 import { useFormik } from "formik"
 import { addToast } from "@heroui/toast"
-import { unsecureHttpService } from "@/helper/services/httpService"
+import httpService, { unsecureHttpService } from "@/helper/services/httpService"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
-import { ILogin } from "@/helper/model/auth"
-import { emailSchema } from "@/helper/services/validation"
+import { IAdminAuth, ILogin } from "@/helper/model/auth"
+import { adminSchema, emailSchema } from "@/helper/services/validation"
 import { handleError } from "@/helper/services/errorHandler"
 import { URLS } from "@/helper/services/urls"
 import { useState } from "react"
@@ -17,6 +17,7 @@ const useAuth = () => {
     const queryClient = useQueryClient()
 
     const router = useRouter()
+
     /** 🔹 Login */
     const loginMutation = useMutation({
         mutationFn: (data: ILogin) =>
@@ -32,6 +33,24 @@ const useAuth = () => {
         },
     })
 
+    /** 🔹 Admin */
+    const adminMutation = useMutation({
+        mutationFn: (data: IAdminAuth) =>
+            httpService.post(URLS.ADMIN, data),
+        onError: handleError,
+        onSuccess: (res) => {
+            addToast({
+                title: "Success",
+                description: res?.data?.message,
+                color: "success",
+            }) 
+
+            queryClient.invalidateQueries({ queryKey: ["admin"] })
+            setIsOpen(false)
+
+        },
+    })
+
     /** 🔹 Verify OTP */
     const verifyMutation = useMutation({
         mutationFn: (data: { code: string }) =>
@@ -39,10 +58,6 @@ const useAuth = () => {
         onError: handleError,
         onSuccess: (res) => {
             const { token, admin } = res.data.data
-
-            console.log(admin);
-            console.log(res.data.data);
-
 
             localStorage.setItem("accesstoken", token)
             localStorage.setItem("userid", admin?._id)
@@ -52,7 +67,7 @@ const useAuth = () => {
                 color: "success",
             })
 
-            // router.push("/dashboard")
+            router.push("/dashboard")
         },
     })
 
@@ -63,18 +78,31 @@ const useAuth = () => {
         onSubmit: (data) => loginMutation.mutate(data),
     })
 
+    /** 🔹 Formik Instances */
+    const formikAdmin = useFormik<IAdminAuth>({
+        initialValues: {
+            "fullName": "",
+            "email": ""
+          },
+        validationSchema: adminSchema,
+        onSubmit: (data) => adminMutation.mutate(data),
+    })
+
     /** 🔹 Loading State */
     const isLoading =
         loginMutation.isPending ||
-        verifyMutation.isPending
+        verifyMutation.isPending ||
+        adminMutation.isPending 
 
     /** 🔹 Loading State */
     const isSuccess =
         loginMutation.isSuccess ||
-        verifyMutation.isSuccess
+        verifyMutation.isSuccess ||
+        adminMutation.isSuccess 
 
     return {
         formik,
+        formikAdmin,
         isLoading,
         isSuccess,
         verifyMutation,

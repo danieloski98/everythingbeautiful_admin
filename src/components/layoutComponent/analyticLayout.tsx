@@ -1,5 +1,5 @@
 "use client"
-import { homeAnalytics, productAnalytics, serviceAnalytics, userAnalytics } from "@/helper/utils/databank";
+import { adminAnalytics, homeAnalytics, productAnalytics, serviceAnalytics, userAnalytics } from "@/helper/utils/databank";
 import { Analytics } from "../shared";
 import { useAtom } from "jotai";
 import { searchAtom } from "@/store/search";
@@ -29,7 +29,11 @@ export default function AnalyticsLayout(
                                 ? productAnalytics
                                 : pathname?.includes("service")
                                     ? serviceAnalytics
-                                    : homeAnalytics
+                                    : pathname?.includes("admin") 
+                                    ? adminAnalytics 
+                                    : pathname === "/dashboard" ?
+                                    homeAnalytics
+                                    : []
                     }
                 />
             )}

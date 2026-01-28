@@ -43,7 +43,7 @@ export const menu = [
     },
     {
         name: "Role Management",
-        link: "/dashboard/role-management",
+        link: "/dashboard/admin",
         icon: RiSettings3Fill
     },
 
@@ -82,6 +82,24 @@ export const userAnalytics = [
         icon: RiUser2Line,
         label: "Suspend User",
         key: "user"
+    }
+]
+
+export const adminAnalytics = [
+    {
+        icon: RiUser2Line,
+        label: "Role Created",
+        key: "totalAdmin"
+    },
+    {
+        icon: RiUser2Line,
+        label: "Read Access",
+        key: "read"
+    },
+    {
+        icon: RiUser2Line,
+        label: "Write Access",
+        key: "write"
     }
 ]
 

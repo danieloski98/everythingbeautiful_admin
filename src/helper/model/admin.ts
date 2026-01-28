@@ -5,7 +5,7 @@ export interface IAdmin {
     "fullname": string,
     "email": string,
     "role": string,
-    "access": string[],
+    "access": Array<string>,
     "suspended": boolean,
     "createdAt": string,
     "updatedAt": string, 

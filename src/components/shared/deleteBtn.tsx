@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 interface IProps {
     onClose: (by: boolean) => void;
-    type: "user" | "service" | "product";
+    type: "user" | "service" | "product" | "admin";
     id: string
 }
 
@@ -17,15 +17,19 @@ export default function DeleteBtn(
     }: IProps
 ) {
 
-    const { deletaProductMutation, deletaServiceMutation, isLoading } = useDeleteHook()
+    const { deleteProductMutation, deletaServiceMutation, deleteAdminMutation, isLoading } = useDeleteHook()
 
     const handleDelete = () => {
         if (type === "product") {
-            deletaProductMutation.mutate(id, {
+            deleteProductMutation.mutate(id, {
                 onSuccess: () => onClose(false),
             })
         } else if (type === "service") {
             deletaServiceMutation.mutate(id, {
+                onSuccess: () => onClose(false),
+            })
+        } else if (type === "admin") {
+            deleteAdminMutation.mutate(id, {
                 onSuccess: () => onClose(false),
             })
         }
