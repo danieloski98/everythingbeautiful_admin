@@ -1,39 +1,42 @@
-
-
 export interface ILogin {
-    email: string,
+    email: string;
 }
 
 export interface IAdminAuth {
-    fullName: string,
-    email: string
+    fullName: string;
+    email: string;
+}
+
+export interface IRoleAuth {
+    name: string;
+    permissions: string[];
 }
 
 export interface IAuth {
-    email: string,
+    email: string;
 }
 
 export interface IOnboarding {
-    firstName: string,
-    lastName: string,
-    phoneNumber: string, 
-    gender: string,
-    profilePicture: string, 
-    dateOfBirth: string,
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    gender: string;
+    profilePicture: string;
+    dateOfBirth: string;
 }
-
-
 
 export interface IUser {
-    firstName: string,
-    lastName: string,
-    phoneNumber: string,
-    dateOfBirth: string,
-    gender: string,
-    profilePicture: string,
-    about: string,
-    homeAddress: string,
-    state: string,
-    officeAddress: string,
-    country: string
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    dateOfBirth: string;
+    gender: string;
+    profilePicture: string;
+    about: string;
+    homeAddress: string;
+    state: string;
+    officeAddress: string;
+    country: string;
 }
+
+export type IType = "user" | "service" | "product" | "admin" | "business" | "license" | "notlicense" | ""

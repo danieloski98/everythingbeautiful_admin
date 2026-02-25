@@ -17,6 +17,7 @@
     "format-number": "^3.0.0",
     "formik": "^2.4.9",
     "framer-motion": "^12.23.26",
+    "iconsax-reactjs": "^0.0.8",
     "jotai": "^2.15.2",
     "lodash": "^4.17.21",
     "moment": "^2.30.1",

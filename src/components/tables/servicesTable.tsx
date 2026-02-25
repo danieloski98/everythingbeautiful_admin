@@ -9,6 +9,8 @@ import { IPagination } from "@/helper/model/pagination";
 import { Column } from "@/helper/model/table";
 import { DeleteBtn, DrawerLayout } from "../shared";
 import { ServiceInfo } from "../modals";
+import { searchAtom } from "@/store/search";
+import { useAtom } from "jotai";
 // import { useAtom } from "jotai";
 // import { searchAtom } from "@/store/search";
 
@@ -20,6 +22,7 @@ export default function ServicesTable() {
     const [dataInfo, setDataInfo] = useState<IServiceDetail[]>([])
     const [isOpen, setIsOpen] = useState<boolean>(false) 
     const [selectedData, setSelectedData] = useState<IServiceDetail | null>(null)
+    const [search] = useAtom(searchAtom);
 
     const { data, isLoading } = useFetchData<IPagination<Array<IServiceDetail>>>({
         endpoint: URLS.SERVICE,
@@ -111,7 +114,7 @@ export default function ServicesTable() {
             <DrawerLayout isOpen={isOpen} setIsOpen={setIsOpen} title="Service Information" footerchildren={
                 <DeleteBtn onClose={setIsOpen} type="service" id={selectedData?._id as string} />
             } >
-                <ServiceInfo {...selectedData as IServiceDetail} />
+                <ServiceInfo setIsOpen={setIsOpen} service={selectedData as IServiceDetail} />
             </DrawerLayout>
         </div>
     )

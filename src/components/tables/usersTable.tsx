@@ -10,6 +10,8 @@ import { IPagination } from "@/helper/model/pagination";
 import { Column } from "@/helper/model/table"; 
 import { DeleteBtn, DrawerLayout } from "../shared"; 
 import { UserInfo } from "../modals"; 
+import { useAtom } from "jotai";
+import { searchAtom } from "@/store/search";
 // import { searchAtom } from "@/store/search";
 // import { useAtom } from "jotai";
 
@@ -22,6 +24,7 @@ export default function UserTable() {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [dataInfo, setDataInfo] = useState<IUserDetail[]>([])
     const [selectedData, setSelectedData] = useState<IUserDetail | null>(null)
+    const [search] = useAtom(searchAtom);
 
     const { data, isLoading } = useFetchData<IPagination<IUserDetail[]>>({
         endpoint: URLS.USER,
@@ -29,7 +32,8 @@ export default function UserTable() {
         pagination: true,
         params: {
             limit: Number(limit),
-            page: page
+            page: page,
+            search
         }
     })
 
@@ -125,7 +129,7 @@ export default function UserTable() {
             <DrawerLayout isOpen={isOpen} setIsOpen={setIsOpen} title="User Information" footerchildren={
                 <DeleteBtn onClose={setIsOpen} type="user" id={selectedData?._id as string}  />
             } >
-                <UserInfo {...selectedData as IUserDetail} />
+                <UserInfo setIsOpen={setIsOpen} user={selectedData as IUserDetail} />
             </DrawerLayout>
         </div>
     )

@@ -1,16 +1,15 @@
-"use client"
- 
-import { addToast } from "@heroui/toast"
-import httpService from "@/helper/services/httpService"
-import { useMutation, useQueryClient } from "@tanstack/react-query" 
-import { handleError } from "@/helper/services/errorHandler"
-import { URLS } from "@/helper/services/urls"
-import { useState } from "react"
+"use client";
+
+import { addToast } from "@heroui/toast";
+import httpService from "@/helper/services/httpService";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { handleError } from "@/helper/services/errorHandler";
+import { URLS } from "@/helper/services/urls";
+import { useState } from "react";
 
 const useDeleteHook = () => {
-
     const [isOpen, setIsOpen] = useState(false);
-    const queryClient = useQueryClient() 
+    const queryClient = useQueryClient();
 
     /** 🔹 Buisness */
     const deletaBuisnessMutation = useMutation({
@@ -22,11 +21,31 @@ const useDeleteHook = () => {
                 title: "Success",
                 description: res?.data?.message,
                 color: "success",
-            }) 
-            queryClient.invalidateQueries({ queryKey: ["user"] })
-            queryClient.invalidateQueries({ queryKey: ["analytics"] })
+            });
+            queryClient.invalidateQueries({ queryKey: ["user"] });
+            queryClient.invalidateQueries({ queryKey: ["analytics"] });
         },
-    }) 
+    });
+
+    /** 🔹 Buisness */
+    const licenseMutation = useMutation({
+        mutationFn: (data: {
+            status: "NOT_LICENSED" | "PENDING" | "LICENSED";
+            id: string;
+        }) =>
+            httpService.patch(URLS.LICENSE(data?.id), {
+                status: data?.status,
+            }),
+        onError: handleError,
+        onSuccess: (res) => {
+            addToast({
+                title: "Success",
+                description: res?.data?.message,
+                color: "success",
+            });
+            queryClient.invalidateQueries({ queryKey: ["business"] });
+        },
+    });
 
     /** 🔹 Service */
     const deletaServiceMutation = useMutation({
@@ -38,11 +57,11 @@ const useDeleteHook = () => {
                 title: "Success",
                 description: res?.data?.message,
                 color: "success",
-            }) 
-            queryClient.invalidateQueries({ queryKey: ["service"] })
-            queryClient.invalidateQueries({ queryKey: ["analytics"] })
+            });
+            queryClient.invalidateQueries({ queryKey: ["service"] });
+            queryClient.invalidateQueries({ queryKey: ["analytics"] });
         },
-    }) 
+    });
 
     /** 🔹 Product */
     const deleteProductMutation = useMutation({
@@ -54,44 +73,54 @@ const useDeleteHook = () => {
                 title: "Success",
                 description: res?.data?.message,
                 color: "success",
-            }) 
-            queryClient.invalidateQueries({ queryKey: ["product"] })
-            queryClient.invalidateQueries({ queryKey: ["analytics"] })
+            });
+            queryClient.invalidateQueries({ queryKey: ["product"] });
+            queryClient.invalidateQueries({ queryKey: ["analytics"] });
         },
-    }) 
+    });
 
     /** 🔹 Product */
     const deleteAdminMutation = useMutation({
-        mutationFn: (data: string) =>
-            httpService.delete(URLS.ADMINBYID(data)),
+        mutationFn: (data: string) => httpService.delete(URLS.ADMINBYID(data)),
         onError: handleError,
         onSuccess: (res) => {
             addToast({
                 title: "Success",
                 description: res?.data?.message,
                 color: "success",
-            }) 
-            queryClient.invalidateQueries({ queryKey: ["admin"] })
-            queryClient.invalidateQueries({ queryKey: ["analytics"] })
+            });
+            queryClient.invalidateQueries({ queryKey: ["admin"] });
+            queryClient.invalidateQueries({ queryKey: ["analytics"] });
         },
-    })
+    });
 
     /** 🔹 Loading State */
     const isLoading =
-        deletaBuisnessMutation.isPending || 
-        deleteProductMutation.isPending || 
+        deletaBuisnessMutation.isPending ||
+        deleteProductMutation.isPending ||
         deletaServiceMutation.isPending ||
-        deleteAdminMutation.isPending
+        deleteAdminMutation.isPending ||
+        licenseMutation.isPending;
 
-    return { 
-        isLoading, 
+    /** 🔹 Loading State */
+    const isSuccess =
+        deletaBuisnessMutation.isSuccess ||
+        deleteProductMutation.isSuccess ||
+        deletaServiceMutation.isSuccess ||
+        deleteAdminMutation.isSuccess ||
+        licenseMutation.isSuccess;
+
+    return {
+        isLoading,
         deletaBuisnessMutation,
         deleteProductMutation,
         deletaServiceMutation,
         deleteAdminMutation,
+        licenseMutation,
+        isSuccess,
         isOpen,
-        setIsOpen
-    }
-}
+        setIsOpen,
+    };
+};
 
-export default useDeleteHook
+export default useDeleteHook;

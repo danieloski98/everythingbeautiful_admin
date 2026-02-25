@@ -1,172 +1,190 @@
-"use client"
-import { BsGridFill } from "react-icons/bs"
-import { FaFolderOpen } from "react-icons/fa"
-import { IoMdWallet } from "react-icons/io"
-import { IoPersonSharp } from "react-icons/io5"
-import { RiSettings3Fill, RiUser2Line } from "react-icons/ri"
+"use client";
+import { BsGridFill } from "react-icons/bs";
+import { FaFolderOpen } from "react-icons/fa";
+import { IoMdWallet } from "react-icons/io";
+import { IoPersonSharp, IoStorefrontSharp } from "react-icons/io5";
+import { RiSettings3Fill, RiUser2Line } from "react-icons/ri";
 
 export const days = [
     "Sunday",
     "Monday",
     "Tuesday",
-    "Wednesday", 
+    "Wednesday",
     "Thursday",
     "Friday",
-    "Saturday"
-]
+    "Saturday",
+];
 
 export const menu = [
     {
         name: "Dashboard",
         link: "/dashboard",
-        icon: BsGridFill
+        icon: BsGridFill,
     },
     {
         name: "Users",
         link: "/dashboard/users",
-        icon: IoPersonSharp
+        icon: IoPersonSharp,
+    },
+    {
+        name: "Licence",
+        link: "/dashboard/licence",
+        icon: IoStorefrontSharp,
     },
     {
         name: "Services",
         link: "/dashboard/services",
-        icon: BsGridFill
+        icon: BsGridFill,
     },
     {
         name: "Shop",
         link: "/dashboard/shop",
-        icon: FaFolderOpen
+        icon: FaFolderOpen,
     },
     {
         name: "Wallet",
         link: "/dashboard/wallet",
-        icon: IoMdWallet
+        icon: IoMdWallet,
     },
     {
         name: "Role Management",
-        link: "/dashboard/admin",
-        icon: RiSettings3Fill
+        link: "/dashboard/roles",
+        icon: RiSettings3Fill,
     },
+    {
+        name: "Admin",
+        link: "/dashboard/admin",
+        icon: RiSettings3Fill,
+    },
+];
 
-]
- 
 export const homeAnalytics = [
     {
         icon: RiUser2Line,
         label: "All Users",
-        key: "totalUsers"
+        key: "totalUsers",
     },
     {
         icon: RiUser2Line,
         label: "All Businesses",
-        key: "totalBusinesses"
+        key: "totalBusinesses",
     },
     {
         icon: RiUser2Line,
         label: "Inactive Users",
-        key: "user"
-    }
-]
+        key: "user",
+    },
+];
 
 export const userAnalytics = [
     {
         icon: RiUser2Line,
         label: "All Users",
-        key: "totalUsers"
+        key: "totalUsers",
     },
     {
         icon: RiUser2Line,
         label: "All Business",
-        key: "totalBusinesses"
+        key: "totalBusinesses",
     },
     {
         icon: RiUser2Line,
         label: "Suspend User",
-        key: "user"
-    }
-]
+        key: "user",
+    },
+];
 
 export const adminAnalytics = [
     {
         icon: RiUser2Line,
         label: "Role Created",
-        key: "totalAdmin"
+        key: "totalAdmin",
     },
     {
         icon: RiUser2Line,
         label: "Read Access",
-        key: "read"
+        key: "read",
     },
     {
         icon: RiUser2Line,
         label: "Write Access",
-        key: "write"
-    }
-]
-
+        key: "write",
+    },
+];
 
 export const serviceAnalytics = [
     {
         icon: RiUser2Line,
         label: "All Service",
-        key: "totalServices"
+        key: "totalServices",
     },
     {
         icon: RiUser2Line,
         label: "Service Booked",
-        key: "user"
+        key: "user",
     },
     {
         icon: RiUser2Line,
         label: "Suspended Service",
-        key: "user"
-    }
-]
+        key: "user",
+    },
+];
 
 export const productAnalytics = [
     {
         icon: RiUser2Line,
         label: "All Product",
-        key: "totalProducts"
+        key: "totalProducts",
     },
     {
         icon: RiUser2Line,
         label: "Product Orderer",
-        key: "user"
+        key: "user",
     },
     {
         icon: RiUser2Line,
         label: "Suspended Product",
-        key: "user"
-    }
-]
+        key: "user",
+    },
+];
 
 export const paginationLimit = [
     {
         value: "10",
-        label: "10"
+        label: "10",
     },
     {
         value: "20",
-        label: "20"
+        label: "20",
     },
     {
         value: "30",
-        label: "30"
+        label: "30",
     },
     {
         value: "40",
-        label: "40"
+        label: "40",
     },
     {
         value: "50",
-        label: "50"
+        label: "50",
     },
     {
         value: "60",
-        label: "60"
+        label: "60",
     },
     {
         value: "70",
-        label: "70"
+        label: "70",
     },
-]
+];
+
+export const permission = [
+    { label: "Dashboard", value: "DASHBOARD" },
+    { label: "Wallet", value: "WALLET" },
+    { label: "User", value: "USER" },
+    { label: "Service", value: "SERVICE" },
+    { label: "Shop", value: "SHOP" },
+    { label: "Role Management", value: "ROLE_MANAGEMENT" },
+    { label: "Admin", value: "ADMIN" },
+];

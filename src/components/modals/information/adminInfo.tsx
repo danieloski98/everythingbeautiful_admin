@@ -1,8 +1,7 @@
 import { IAdmin } from "@/helper/model/admin";
 import { dateFormat } from "@/helper/utils/dateFormat";
-import { Avatar } from "@heroui/react";
-import { useState } from "react";
-import { RiEdit2Fill, RiEditFill } from "react-icons/ri";
+import { Avatar } from "@heroui/react"; 
+import { RiEdit2Fill } from "react-icons/ri";
 
 export default function AdminInfo(props: IAdmin) { 
 

@@ -106,7 +106,7 @@ export default function ProductsTable() {
             <DrawerLayout isOpen={isOpen} setIsOpen={setIsOpen} title="Product Information" footerchildren={
                 <DeleteBtn onClose={setIsOpen} type="product" id={selectedData?._id as string} />
             } >
-                <ProductInfo {...selectedData as IProductDetail} />
+                <ProductInfo setIsOpen={setIsOpen} product={selectedData as IProductDetail} />
             </DrawerLayout>
         </div>
     )

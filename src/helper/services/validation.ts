@@ -1,20 +1,32 @@
-
-import * as Yup from "yup"
+import * as Yup from "yup";
 
 /** 🔹 Formik Schemas */
 export const emailSchema = Yup.object({
     email: Yup.string().email("Invalid email").required("Required"),
-})
+});
 
 /** 🔹 Formik Schemas */
 export const adminSchema = Yup.object({
     fullName: Yup.string().required("Required"),
     email: Yup.string().email("Invalid email").required("Required"),
-})
+});
+
+export const roleSchema = Yup.object({
+    name: Yup.string()
+        .trim()
+        .required("Role name is required")
+        .min(3, "Role name must be at least 3 characters")
+        .max(50, "Role name must be less than 50 characters"),
+
+    permissions: Yup.array()
+        .of(Yup.string().required())
+        .min(1, "Select at least one permission")
+        .required("Permissions are required"),
+});
 
 export const otpSchema = Yup.object({
     code: Yup.string().required("Required"),
-})
+});
 
 export const userSchema = Yup.object({
     firstName: Yup.string().required("Required"),
@@ -22,7 +34,7 @@ export const userSchema = Yup.object({
     phoneNumber: Yup.string().required("Required"),
     gender: Yup.string().required("Required"),
     dateOfBirth: Yup.string().required("Required"),
-})
+});
 
 export const businessSchema = Yup.object({
     userId: Yup.string().required("User ID is required"),

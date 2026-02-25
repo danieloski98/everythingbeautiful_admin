@@ -10,3 +10,12 @@ export interface IAdmin {
     "createdAt": string,
     "updatedAt": string, 
 }
+
+export interface IRole {
+    "_id": string,
+    "isDeleted": boolean,
+    "name": string,
+    "permissions": string[],
+    "createdAt": string,
+    "updatedAt": string, 
+}

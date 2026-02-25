@@ -5,8 +5,8 @@ import { addToast } from "@heroui/toast"
 import httpService, { unsecureHttpService } from "@/helper/services/httpService"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
-import { IAdminAuth, ILogin } from "@/helper/model/auth"
-import { adminSchema, emailSchema } from "@/helper/services/validation"
+import { IAdminAuth, ILogin, IRoleAuth } from "@/helper/model/auth"
+import { adminSchema, emailSchema, roleSchema } from "@/helper/services/validation"
 import { handleError } from "@/helper/services/errorHandler"
 import { URLS } from "@/helper/services/urls"
 import { useState } from "react"
@@ -51,6 +51,24 @@ const useAuth = () => {
         },
     })
 
+    /** 🔹 Admin */
+    const roleMutation = useMutation({
+        mutationFn: (data: IRoleAuth) =>
+            httpService.post(URLS.ROLE, data),
+        onError: handleError,
+        onSuccess: (res) => {
+            addToast({
+                title: "Success",
+                description: res?.data?.message,
+                color: "success",
+            }) 
+
+            queryClient.invalidateQueries({ queryKey: ["role"] })
+            setIsOpen(false)
+
+        },
+    })
+
     /** 🔹 Verify OTP */
     const verifyMutation = useMutation({
         mutationFn: (data: { code: string }) =>
@@ -88,21 +106,35 @@ const useAuth = () => {
         onSubmit: (data) => adminMutation.mutate(data),
     })
 
+
+    /** 🔹 Formik Instances */
+    const formikRole = useFormik<IRoleAuth>({
+        initialValues: {
+            "name": "",
+            "permissions": []
+          },
+        validationSchema: roleSchema,
+        onSubmit: (data) => roleMutation.mutate(data),
+    })
+
     /** 🔹 Loading State */
     const isLoading =
         loginMutation.isPending ||
         verifyMutation.isPending ||
-        adminMutation.isPending 
+        adminMutation.isPending ||
+        roleMutation.isPending 
 
     /** 🔹 Loading State */
     const isSuccess =
         loginMutation.isSuccess ||
         verifyMutation.isSuccess ||
-        adminMutation.isSuccess 
+        adminMutation.isSuccess ||
+        roleMutation.isSuccess 
 
     return {
         formik,
         formikAdmin,
+        formikRole,
         isLoading,
         isSuccess,
         verifyMutation,
