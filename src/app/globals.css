@@ -21,14 +21,7 @@
   --color-brand: var(--brand);
   --font-sans: var(--font-dms-sans); 
   --color-bordercolor: var(--bordercolor);
-}
-
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
+} 
 
 button {
   cursor: pointer;
