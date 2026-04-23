@@ -50,8 +50,8 @@ export default function RoleTable() {
                     <div className=" w-fit px-3 flex flex-wrap " >
                         {item?.permissions?.map((subitem, index) => {
                             return(
-                                <div key={index} className={` flex items-center justify-center h-5 border-[#DDE6EB] px-2 ${item?.permissions?.length !== index+1 ? " border-r " : " " } `} >
-                                    {subitem}
+                                <div key={index} className={` flex items-center capitalize justify-center h-5 border-[#DDE6EB] px-2 ${item?.permissions?.length !== index+1 ? " border-r " : " " } `} >
+                                    {subitem?.replace("_", " ")}
                                 </div>
                             )
                         })}
